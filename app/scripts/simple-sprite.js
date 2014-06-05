@@ -1,4 +1,6 @@
 (function () {
+    'use strict';
+
     var SETTINGS = {
         scale: 1, // How much to scale the Canvas up by
         target: 'canvas', // Id or element to append the Canvas element to
