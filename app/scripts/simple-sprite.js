@@ -13,13 +13,14 @@
     };
 
     var _event = {
-        imageReady: function () {
-            this._loaded = true;
+        imageReady: function (spriteSheet) {
+            this.spriteSheet = spriteSheet;
 
             // Number of frames
             this.frameWidth = (this.spriteSheet.canvas.width / (this.width * this.scale));
             this.frameHeight = (this.spriteSheet.canvas.height / (this.height * this.scale));
 
+            this._loaded = true;
             this.draw();
         }
     };
@@ -30,7 +31,7 @@
             this.canvas.style.webkitTransform = value;
             this.canvas.style.transform = value;
         }
-    }
+    };
 
     /**
      * Allows you to quickly create a sprite animation on the fly (lightweight)
@@ -73,15 +74,15 @@
         }
 
         this.setCanvas(width, height, this.scale);
-        this.spriteSheet = new SimpleSpriteSheet(image, {
-            scale: this.scale,
-            callback: _event.imageReady.bind(this)
-        });
-
         this.ctx = this.canvas.getContext('2d');
         this.ctx.webkitImageSmoothingEnabled = false;
         this.ctx.mozImageSmoothingEnabled = false;
         this.ctx.imageSmoothingEnabled = false;
+
+        new SimpleSpriteSheet(image, {
+            scale: this.scale,
+            callback: _event.imageReady.bind(this)
+        });
     };
 
     SimpleSprite.prototype.setCanvas = function (width, height, scale) {

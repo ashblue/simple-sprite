@@ -34,3 +34,14 @@ $('#stop').click(function () {
 $('#rewind').click(function () {
     vulture.rewind();
 });
+
+//window.onload = function () {
+//    var vulture = new SimpleSprite(document.getElementById('my-image'), 17, 13, {
+//        scale: 4,
+//        target: 'vulture',
+//        frame: 0,
+//        sequence: [0, 1, 2, 3, 4, 5, 4, 5, 4, 5, 4, 5],
+//        repeat: true,
+//        speed: 0.3
+//    });
+//};

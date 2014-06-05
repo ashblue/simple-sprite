@@ -15,7 +15,7 @@
             this.ctx.mozImageSmoothingEnabled = false;
             this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
 
-            this.callback();
+            this.callback(this);
         }
     };
 
@@ -50,9 +50,14 @@
 //            this.draw();
 //        }
 
-        this.image = new Image();
-        this.image.onload = _event.imageReady.bind(this);
-        this.image.src = image;
+        if (typeof image === 'string') {
+            this.image = new Image();
+            this.image.onload = _event.imageReady.bind(this);
+            this.image.src = image;
+        } else {
+            this.image = image;
+            _event.imageReady.call(this);
+        }
     };
 
     window.SimpleSpriteSheet = SimpleSpriteSheet;

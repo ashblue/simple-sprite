@@ -22,10 +22,11 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <!--<img class="hide" src="images/vulture.png" id="my-image" />-->
 
         <div class="container">
             <h1>Simple Sprite</h1>
-            <p>Turn an image into a scaled sprite sheet with just one line of code.</p>
+            <p>Turn an image into a scaled sprite sheet with just one line of code. Accepts images of data:uri, <code>&lt;img&gt;</code>, and url paths.</p>
             <canvas id="vulture"></canvas>
 
             <form class="form-inline" style="margin-bottom: 10px">
@@ -48,7 +49,8 @@
     frame: 0,
     sequence: [0, 1, 2, 3, 4, 5, 4, 5, 4, 5, 4, 5],
     repeat: true,
-    speed: 0.3
+    speed: 0.3,
+    flipX: false
 });</pre>
 
             <h2>Used Sprite Sheet</h2>
@@ -72,7 +74,7 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <!-- build:js scripts/main.js -->
+        <!-- build:js scripts/simple-sprite.js -->
         <script src="scripts/simple-sprite-image.js"></script>
         <script src="scripts/simple-sprite.js"></script>
         <!-- endbuild -->
