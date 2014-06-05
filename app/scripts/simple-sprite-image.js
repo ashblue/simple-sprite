@@ -4,19 +4,14 @@
     var SETTINGS = {
         scale: 1, // How much to scale the Canvas up by
         _loaded: false,
-        debugId: 'simple-sprite-image'
+        debugId: 'simple-sprite-image',
+        callback: null // Only fired immediately after first load
     };
 
     var _event = {
         imageReady: function () {
-            this.canvas.width = this.image.width * this.scale;
-            this.canvas.height = this.image.height * this.scale;
-
-            this.ctx.imageSmoothingEnabled = false;
-            this.ctx.webkitImageSmoothingEnabled = false;
-            this.ctx.mozImageSmoothingEnabled = false;
-            this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
-
+            this._loaded = true;
+            this.draw();
             this.callback(this);
         }
     };
@@ -40,18 +35,6 @@
         var debug = document.getElementById('simple-sprite-image');
         if (debug) debug.appendChild(this.canvas);
 
-        // @TODO Vary loading based upon if its an image url, image data, or image object
-//        var imageType = typeof image;
-//        if (imageType === 'string') {
-//            this.image = new Image();
-//            this.image.onload = _event.imageReady.bind(this);
-//            this.image.src = image;
-//        } else {
-//            this.image = image;
-//            this._loaded = true;
-//            this.draw();
-//        }
-
         if (typeof image === 'string') {
             this.image = new Image();
             this.image.onload = _event.imageReady.bind(this);
@@ -60,6 +43,20 @@
             this.image = image;
             _event.imageReady.call(this);
         }
+    };
+
+    SimpleSpriteSheet.prototype.draw = function (scale) {
+        if (!this._loaded) return;
+        if (scale) this.scale = scale;
+
+        this.canvas.width = this.image.width * this.scale;
+        this.canvas.height = this.image.height * this.scale;
+
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.imageSmoothingEnabled = false;
+        this.ctx.webkitImageSmoothingEnabled = false;
+        this.ctx.mozImageSmoothingEnabled = false;
+        this.ctx.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
     };
 
     window.SimpleSpriteSheet = SimpleSpriteSheet;

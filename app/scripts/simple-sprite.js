@@ -11,6 +11,7 @@
         repeat: false, // Should this sprite loop infinitely?
         flipX: false, // Flip the drawn image horizontally
         flipY: false, // Flip the drawn image vertically
+        spriteSheet: null, // Sprite sheet used for resampling
         _loaded: false // Triggered when the image data is fully loaded
     };
 
@@ -88,9 +89,9 @@
     };
 
     SimpleSprite.prototype.setCanvas = function (width, height, scale) {
-        this.scale = scale;
-        this.width = width;
-        this.height = height;
+        if (scale) this.scale = scale;
+        if (width) this.width = width;
+        if (height) this.height = height;
 
         this.canvas.width = this.width * this.scale;
         this.canvas.height = this.height * this.scale;
@@ -102,6 +103,16 @@
         } else if (this.flipY) {
             _private.setTransform.apply(this, ['scale(1, -1)']);
         }
+    };
+
+    SimpleSprite.prototype.setScale = function (scale) {
+        this.setCanvas(null, null, scale);
+        this.spriteSheet.draw(scale);
+
+        this.frameWidth = (this.spriteSheet.canvas.width / (this.width * this.scale));
+        this.frameHeight = (this.spriteSheet.canvas.height / (this.height * this.scale));
+
+        this.draw();
     };
 
     SimpleSprite.prototype.draw = function () {

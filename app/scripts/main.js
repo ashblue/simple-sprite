@@ -7,11 +7,7 @@ var vulture = new SimpleSprite('./images/vulture.png', 17, 13, {
     speed: 0.3
 });
 
-$('#play').click(function () {
-
-    vulture.play();
-});
-
+// Editable sequence
 $('#change-sequence').click(function (e) {
     e.preventDefault();
 
@@ -21,6 +17,16 @@ $('#change-sequence').click(function (e) {
         });
 
     vulture.rewind();
+});
+
+// Live scaling change
+$('#scale-change').change(function () {
+    vulture.setScale(parseInt($(this).val(), 10));
+});
+
+// Playback controles
+$('#play').click(function () {
+    vulture.play();
 });
 
 $('#pause').click(function () {
