@@ -1,4 +1,4 @@
-var vulture = new SimpleSprite('/images/vulture.png', 17, 13, {
+var vulture = new SimpleSprite('./images/vulture.png', 17, 13, {
     scale: 4,
     target: 'vulture',
     frame: 0,
