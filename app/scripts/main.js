@@ -1,7 +1,3 @@
-var barrel = new SimpleSprite('/images/barrel.png', 11, 16, {
-    scale: 4
-});
-
 var vulture = new SimpleSprite('/images/vulture.png', 17, 13, {
     scale: 4,
     target: 'vulture',
@@ -12,7 +8,19 @@ var vulture = new SimpleSprite('/images/vulture.png', 17, 13, {
 });
 
 $('#play').click(function () {
+
     vulture.play();
+});
+
+$('#change-sequence').click(function (e) {
+    e.preventDefault();
+
+    vulture.sequence = $('#sequence').val().split(',')
+        .map(function (frame) {
+            return parseInt(frame.trim(), 10);
+        });
+
+    vulture.rewind();
 });
 
 $('#pause').click(function () {

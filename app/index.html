@@ -24,20 +24,35 @@
 
 
         <div class="container">
-            <h1>Sprites</h1>
-            <canvas id="canvas"></canvas>
+            <h1>Simple Sprite</h1>
+            <p>Turn an image into a scaled sprite sheet with just one line of code.</p>
             <canvas id="vulture"></canvas>
 
-            <div>
+            <form class="form-inline" style="margin-bottom: 10px">
+                <div class="form-group">
+                    <input style="width: 400px" class="form-control" id="sequence" value="0, 1, 2, 3, 4, 5, 4, 5, 4, 5, 4, 5" />
+                </div>
+                <button id="change-sequence" class="btn btn-primary">Change Sequence</button>
+            </form>
+
+            <div style="margin-bottom: 20px;">
                 <button class="btn btn-secondary" id="play"><span class="glyphicon glyphicon-play"></span></button>
                 <button class="btn btn-secondary" id="pause"><span class="glyphicon glyphicon-pause"></span></button>
                 <button class="btn btn-secondary" id="stop"><span class="glyphicon glyphicon-stop"></span></button>
                 <button class="btn btn-secondary" id="rewind"><span class="glyphicon glyphicon-backward"></span></button>
-
             </div>
 
-            <h2>Images</h2>
-            <div id="image"></div>
+<pre>new SimpleSprite('/images/vulture.png', 17, 13, {
+    scale: 4,
+    target: 'vulture',
+    frame: 0,
+    sequence: [0, 1, 2, 3, 4, 5, 4, 5, 4, 5, 4, 5],
+    repeat: true,
+    speed: 0.3
+});</pre>
+
+            <h2>Used Sprite Sheet</h2>
+            <div id="simple-sprite-image"></div>
         </div>
 
 

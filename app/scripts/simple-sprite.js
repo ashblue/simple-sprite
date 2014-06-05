@@ -3,11 +3,13 @@
         scale: 1, // How much to scale the Canvas up by
         target: 'canvas', // Id or element to append the Canvas element to
         speed: 1, // Speed per frame
-        sequenceIndex: 0,
+        sequenceIndex: 0, // Current sequence item
         sequence: [0], // Animation sequence for the sprite
-        frame: 0,
-        repeat: false,
-        _loaded: false
+        frame: 0, // Currently displayed frame
+        repeat: false, // Should this sprite loop infinitely?
+        flipX: false, // Flip the drawn image horizontally
+        flipY: false, // Flip the drawn image vertically
+        _loaded: false // Triggered when the image data is fully loaded
     };
 
     var _event = {
@@ -21,6 +23,14 @@
             this.draw();
         }
     };
+
+    var _private = {
+        setTransform: function (value) {
+            this.canvas.style.mozTransform = value;
+            this.canvas.style.webkitTransform = value;
+            this.canvas.style.transform = value;
+        }
+    }
 
     /**
      * Allows you to quickly create a sprite animation on the fly (lightweight)
@@ -81,6 +91,14 @@
 
         this.canvas.width = this.width * this.scale;
         this.canvas.height = this.height * this.scale;
+
+        if (this.flipX && this.flipY) {
+            _private.setTransform.apply(this, ['scale(-1, -1)']);
+        } else if (this.flipX) {
+            _private.setTransform.apply(this, ['scale(-1, 1)']);
+        } else if (this.flipY) {
+            _private.setTransform.apply(this, ['scale(1, -1)']);
+        }
     };
 
     SimpleSprite.prototype.draw = function () {
@@ -95,16 +113,6 @@
     };
 
     SimpleSprite.prototype.update = function () {
-//        if (this.sequenceIndex >= this.sequence.length) {
-//            if (this.repeat) {
-//                this.sequenceIndex = 0;
-//                this.frame = this.sequence[this.sequenceIndex];
-//            }
-//        } else {
-//            this.frame = this.sequence[this.sequenceIndex];
-//            this.sequenceIndex += 1;
-//        }
-
         if (this.sequenceIndex >= this.sequence.length - 1) {
             if (this.repeat) this.sequenceIndex = 0;
         } else {
@@ -142,14 +150,6 @@
 
     SimpleSprite.prototype.pause = function () {
         if (this.timer) window.clearInterval(this.timer);
-    };
-
-    SimpleSprite.prototype.setSequence = function (index, frame) {
-
-    };
-
-    SimpleSprite.prototype.getSequence = function (index) {
-
     };
 
     window.SimpleSprite = SimpleSprite;

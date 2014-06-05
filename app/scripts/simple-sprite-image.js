@@ -1,7 +1,8 @@
 (function () {
     var SETTINGS = {
         scale: 1, // How much to scale the Canvas up by
-        _loaded: false
+        _loaded: false,
+        debugId: 'simple-sprite-image'
     };
 
     var _event = {
@@ -34,8 +35,8 @@
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
 
-
-        document.getElementById('image').appendChild(this.canvas);
+        var debug = document.getElementById('simple-sprite-image');
+        if (debug) debug.appendChild(this.canvas);
 
         // @TODO Vary loading based upon if its an image url, image data, or image object
 //        var imageType = typeof image;
